@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {addTodo} from '../actions'
+import {addTodo, getAll} from '../actions'
 
 class AddForm extends Component {
     constructor(props){
@@ -23,8 +23,10 @@ class AddForm extends Component {
 
     handleFormSubmit(event){
         event.preventDefault();
-        console.log('Form Vals: ', this.state);
-        this.props.addTodo(this.state)
+        console.log('Form Vals: ', this.state)
+        this.props.addTodo(this.state).then(() =>{
+            this.props.getAll()
+        })
         this.setState({
             title: '',
             details: ''
@@ -44,4 +46,4 @@ class AddForm extends Component {
     }
 }
 
-export default connect(null,{addTodo})(AddForm);
+export default connect(null,{addTodo,getAll})(AddForm);

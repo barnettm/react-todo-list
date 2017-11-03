@@ -1,13 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {deleteTodo} from '../actions';
+import {deleteTodo, getAll} from '../actions';
 
 const TodoItem = props => {
     const {index, item} = props;
     const handleClick = () => {
-    console.log('Delete item at index: ', index);
+    console.log('Delete item at index: ', item._id);
 
-    props.deleteTodo(index);
+    props.deleteTodo(item._id).then(() => {
+        props.getAll();
+    });
 }
 
     return(
@@ -22,4 +24,4 @@ const TodoItem = props => {
     )
 }
 
-export default connect(null, {deleteTodo})(TodoItem);
+export default connect(null, {deleteTodo, getAll})(TodoItem);
